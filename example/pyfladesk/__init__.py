@@ -2,7 +2,6 @@ import sys
 from PySide6 import QtCore, QtWidgets, QtGui
 from PySide6.QtWebEngineCore import QWebEnginePage
 from PySide6.QtWebEngineWidgets import QWebEngineView
-import PySide6
 import socket
 
 
