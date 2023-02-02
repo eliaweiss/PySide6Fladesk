@@ -1,5 +1,9 @@
+# mac
 python3 -m PyInstaller -w -F --add-data "templates:templates" --add-data "static:static" app.py
-
+# windows
+python -m PyInstaller -w -F --add-data "templates;templates" --add-data "static;static" app.py
+python -m PyInstaller -F --add-data "templates;templates" --add-data "static;static" app.py
+python -m PyInstaller .\app.spec
 ## PyFladesk
 
 Create desktop application by using Flask and QtWebEngine.
