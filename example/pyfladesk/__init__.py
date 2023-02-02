@@ -1,5 +1,8 @@
 import sys
-from PyQt5 import QtCore, QtWidgets, QtGui, QtWebEngineWidgets
+from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6.QtWebEngineCore import QWebEnginePage
+from PySide6.QtWebEngineWidgets import QWebEngineView
+import PySide6
 import socket
 
 
@@ -16,7 +19,7 @@ class ApplicationThread(QtCore.QThread):
         self.application.run(port=self.port, threaded=True)
 
 
-class WebPage(QtWebEngineWidgets.QWebEnginePage):
+class WebPage(QWebEnginePage):
     def __init__(self, root_url):
         super(WebPage, self).__init__()
         self.root_url = root_url
@@ -27,7 +30,7 @@ class WebPage(QtWebEngineWidgets.QWebEnginePage):
     def acceptNavigationRequest(self, url, kind, is_main_frame):
         """Open external links in browser and internal links in the webview"""
         ready_url = url.toEncoded().data().decode()
-        is_clicked = kind == self.NavigationTypeLinkClicked
+        is_clicked = kind == self.NavigationType.NavigationTypeLinkClicked
         if is_clicked and self.root_url not in ready_url:
             QtGui.QDesktopServices.openUrl(url)
             return False
@@ -58,7 +61,7 @@ def init_gui(application, port=0, width=800, height=600,
     window.setWindowIcon(QtGui.QIcon(icon))
 
     # WebView Level
-    webView = QtWebEngineWidgets.QWebEngineView(window)
+    webView = QWebEngineView(window)
     window.setCentralWidget(webView)
 
     # WebPage Level
